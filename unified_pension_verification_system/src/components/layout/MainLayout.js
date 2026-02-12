@@ -82,6 +82,8 @@ const MainLayout = () => {
             width: drawerSize,
             overflowX: 'hidden',
             transition: 'width 0.2s ease',
+            bgcolor: '#DBEAFE',
+            color: '#2563EB',  
           },
         }}
       >
@@ -117,6 +119,8 @@ const MainLayout = () => {
           display: { xs: 'block', md: 'none' },
           '& .MuiDrawer-paper': {
             width: drawerWidth,
+            bgcolor: '#AEDEFC',
+            color: '#000000',
           },
         }}
       >
@@ -130,7 +134,6 @@ const MainLayout = () => {
           bgcolor: 'background.default',
           p: { xs: 2, md: 3 },
           mt: '72px',
-          ml: { md: `${drawerSize}px` },
           transition: 'margin 0.2s ease',
         }}
       >
@@ -142,3 +145,4 @@ const MainLayout = () => {
 };
 
 export default MainLayout;
+

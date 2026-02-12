@@ -129,24 +129,34 @@ const Beneficiaries = () => {
         </Typography>
       )}
 
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1rem' }}>
         Showing {filteredRows.length} result{filteredRows.length === 1 ? '' : 's'}
       </Typography>
 
-      <Box sx={{ height: 520 }}>
+      <Box sx={{ height: 1000, pt: 1 }}>
         <DataGrid
           rows={filteredRows}
           columns={columns}
-          pageSizeOptions={[5, 10]}
+          pageSizeOptions={[25, 50, 100]}
           initialState={{
-            pagination: { paginationModel: { pageSize: 5, page: 0 } },
+            pagination: { paginationModel: { pageSize: 100, page: 0 } },
           }}
           disableRowSelectionOnClick
           loading={loading}
           sx={{
             bgcolor: 'background.paper',
-            borderRadius: 3,
+            borderRadius: 2,
             borderColor: 'divider',
+            '& .MuiDataGrid-columnHeaders': {
+              borderBottom: '1px solid',
+              borderColor: 'divider',
+            },
+            '& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell': {
+              px: 10,
+            },
+            '& .MuiDataGrid-main': {
+              pt: 1,
+            },
           }}
         />
       </Box>
@@ -233,3 +243,6 @@ const Beneficiaries = () => {
 };
 
 export default Beneficiaries;
+
+
+

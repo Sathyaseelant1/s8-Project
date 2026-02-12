@@ -59,3 +59,21 @@ export const fetchDuplicateGroups = async () => {
     records: item.records || [],
   }));
 };
+
+export const loginOfficer = async ({ officerId, password, role }) => {
+  const response = await fetch(`${API_BASE}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ officerId, password, role }),
+  });
+  return handleResponse(response);
+};
+
+export const requestPasswordReset = async ({ officerId, role }) => {
+  const response = await fetch(`${API_BASE}/api/auth/forgot-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ officerId, role }),
+  });
+  return handleResponse(response);
+};

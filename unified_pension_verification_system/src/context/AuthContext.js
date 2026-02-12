@@ -2,22 +2,48 @@ import { createContext, useContext, useMemo, useState } from 'react';
 
 const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
-  const [role, setRole] = useState('Central Admin');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const defaultRole = 'Central Admin';
+const tokenStorageKey = 'upvs_auth_token';
 
-  const login = (selectedRole) => {
-    setRole(selectedRole);
+export const AuthProvider = ({ children }) => {
+  const [role, setRole] = useState(defaultRole);
+  const [officerId, setOfficerId] = useState('');
+  const initialToken = localStorage.getItem(tokenStorageKey) || '';
+  const [token, setToken] = useState(initialToken);
+  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(initialToken));
+
+  const login = (payload) => {
+    if (typeof payload === 'string') {
+      setRole(payload);
+      setOfficerId('');
+      setToken('');
+      setIsAuthenticated(true);
+      return;
+    }
+
+    setRole(payload.role);
+    setOfficerId(payload.officerId);
+    const nextToken = payload.token || '';
+    setToken(nextToken);
+    if (payload.rememberMe && nextToken) {
+      localStorage.setItem(tokenStorageKey, nextToken);
+    } else {
+      localStorage.removeItem(tokenStorageKey);
+    }
     setIsAuthenticated(true);
   };
 
   const logout = () => {
+    setRole(defaultRole);
+    setOfficerId('');
+    setToken('');
+    localStorage.removeItem(tokenStorageKey);
     setIsAuthenticated(false);
   };
 
   const value = useMemo(
-    () => ({ role, isAuthenticated, login, logout }),
-    [role, isAuthenticated]
+    () => ({ role, officerId, token, isAuthenticated, login, logout }),
+    [role, officerId, token, isAuthenticated]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

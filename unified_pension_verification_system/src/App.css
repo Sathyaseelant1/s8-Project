@@ -14,15 +14,53 @@
     radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.2), transparent 35%),
     #f8fafc;
   display: grid;
-  place-items: center;
+  grid-template-columns: minmax(320px, 520px);
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  gap: 28px;
   padding: 32px;
 }
 
-.auth-card {
+.auth-card,
+.auth-card.MuiPaper-root {
   width: min(520px, 100%);
-  border-radius: 20px;
+  border-radius: 24px;
   border: 1px solid #e5e7eb;
   box-shadow: 0px 18px 40px rgba(15, 23, 42, 0.12);
+  justify-self: center;
+  align-self: center;
+}
+
+.auth-card .MuiCardContent-root {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 70px;
+}
+
+.auth-card .MuiCardContent-root:last-child {
+  padding-bottom: 70px;
+}
+
+.auth-side-panel {
+  width: min(520px, 100%);
+  border-radius: 24px;
+  padding: 34px;
+  border: 1px solid rgba(191, 219, 254, 0.35);
+  background: linear-gradient(140deg, #0f172a, #1d4ed8 75%, #60a5fa);
+  box-shadow: 0px 24px 46px rgba(15, 23, 42, 0.28);
+}
+
+@media (max-width: 980px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .auth-side-panel {
+    width: min(520px, 100%);
+  }
 }
 
 .warning-card {

@@ -14,7 +14,7 @@ import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import HubOutlinedIcon from '@mui/icons-material/HubOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const navConfig = [
@@ -57,7 +57,13 @@ const navConfig = [
 ];
 
 const SidebarNav = ({ collapsed = false }) => {
-  const { role } = useAuth();
+  const { role, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login', { replace: true });
+  };
 
   return (
     <Stack sx={{ height: '100%', pb: 3 }}>
@@ -72,20 +78,20 @@ const SidebarNav = ({ collapsed = false }) => {
               sx={{
                 mb: 1,
                 borderRadius: 2,
-                color: '#94A3B8',
+                color: '#0D2250',
                 '&.active': {
-                  bgcolor: '#1E40AF',
-                  color: '#FFFFFF',
-                  '& .MuiListItemIcon-root': { color: '#FFFFFF' },
+                  bgcolor: '#DBEAFE',
+                  color: '#3B82F6',
+                  '& .MuiListItemIcon-root': { color: '#3B82F6' },
                 },
                 '&:hover': {
                   bgcolor: 'rgba(30, 64, 175, 0.25)',
-                  color: '#FFFFFF',
-                  '& .MuiListItemIcon-root': { color: '#FFFFFF' },
+                  color: '#0D2250',
+                  '& .MuiListItemIcon-root': { color: '#0d2250' },
                 },
               }}
             >
-              <ListItemIcon sx={{ color: '#94A3B8', minWidth: 40 }}>
+              <ListItemIcon sx={{ color: '#0d2250', minWidth: 40 }}>
                 {item.icon}
               </ListItemIcon>
               {!collapsed && <ListItemText primary={item.label} />}
@@ -94,22 +100,21 @@ const SidebarNav = ({ collapsed = false }) => {
       </List>
 
       <Box sx={{ mt: 'auto', px: 2 }}>
-        <Typography variant="caption" color="#94A3B8" sx={{ display: 'block', mb: 1 }}>
+        <Typography variant="caption" color="#0d2250" sx={{ display: 'block', mb: 1 }}>
           Access
         </Typography>
         <ListItemButton
-          component={NavLink}
-          to="/login"
+          onClick={handleLogout}
           sx={{
             borderRadius: 2,
-            color: '#94A3B8',
-            '&:hover': { bgcolor: 'rgba(148, 163, 184, 0.15)', color: '#FFFFFF' },
+            color: '#0d2250',
+            '&:hover': { bgcolor: 'rgba(148, 163, 184, 0.15)', color: '#0d2250' },
           }}
         >
-          <ListItemIcon sx={{ color: '#94A3B8', minWidth: 40 }}>
+          <ListItemIcon sx={{ color: '#0d2250', minWidth: 40 }}>
             <LoginOutlinedIcon />
           </ListItemIcon>
-          {!collapsed && <ListItemText primary="Switch Role" />}
+          {!collapsed && <ListItemText primary="Log Out" />}
         </ListItemButton>
       </Box>
     </Stack>
